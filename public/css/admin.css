@@ -1,0 +1,23 @@
+header {
+    background: #f2f2f2;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+header .nav {
+    float: right;
+}
+
+header .nav a {
+    margin-right: 10px;
+}
+
+.auth-form {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.form {
+    width: 600px;
+    margin: 0 auto;
+}
