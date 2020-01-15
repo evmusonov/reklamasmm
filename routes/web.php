@@ -19,7 +19,10 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/admin/menu', 'MenuController@index');
     Route::get('/admin/menu/create', 'MenuController@create');
-    Route::put('/admin/menu', 'MenuController@store');
+    Route::post('/admin/menu', 'MenuController@store');
+    Route::get('/admin/menu/{menu}/edit', 'MenuController@edit');
+    Route::put('/admin/menu/{menu}', 'MenuController@update');
+    Route::get('/admin/menu/{menu}/delete', 'MenuController@destroy');
 });
 
 Route::post('/admin/login', 'AdminController@auth');

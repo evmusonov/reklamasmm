@@ -11,10 +11,12 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/css/admin.css" rel="stylesheet">
     <script src="/bootstrap/js/jquery-3.4.1.min.js"></script>
     <script src="/bootstrap/js/bootstrap4.4.min.js"></script>
+    <script src="/js/backend.js"></script>
 </head>
 <body>
     <header>
@@ -24,7 +26,7 @@
             </div>
             <div class="col-sm-9">
                 <div class="nav">
-                    <a href="/">Главная</a>
+                    <a href="/" target="_blank">На гавную</a>
                     @if (Auth::check())
                         <a href="/admin/logout">Выйти</a>
                     @endif

@@ -9,7 +9,9 @@ class MenuController extends Controller
 {
     public function index()
     {
-        return view('admin.menu.index');
+        $menu = Menu::orderBy('weight', 'asc')->get();
+
+        return view('admin.menu.index', ['menu' => $menu]);
     }
 
     public function create()
@@ -23,8 +25,13 @@ class MenuController extends Controller
             'title' => 'required',
             'link' => 'required',
             'weight' => 'required',
-            'status' => 'nullable'
+            'status' => 'boolean'
         ]);
+
+        $exist = Menu::where('title', $validatedData['title'])->first();
+        if ($exist) {
+            return redirect('/admin/menu/create')->with('exist', 'Пункт меню с таким заголовком уже существует');
+        }
 
         Menu::create($validatedData);
 
@@ -42,37 +49,39 @@ class MenuController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Menu $menu)
     {
-        //
+        return view('admin.menu.edit', ['menu' => $menu]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Menu $menu)
     {
-        //
+        $validatedData = request()->validate([
+            'title' => 'required',
+            'link' => 'required',
+            'weight' => 'required',
+            'status' => 'boolean'
+        ]);
+
+        $exist = Menu::where([
+            ['title', $validatedData['title']],
+            ['title', '<>', $menu->title]
+        ])->first();
+        if ($exist) {
+            return redirect("/admin/menu/$menu->id/edit")->with('exist', 'Пункт меню с таким заголовком уже существует');
+        }
+
+        $menu->update($validatedData);
+
+        return redirect('/admin/menu');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Menu $menu)
     {
-        //
+        if ($menu->delete()) {
+            return redirect('/admin/menu')->with('deleteSuccess', 'Запись успешно удалена.');
+        }
+
+        return redirect('/admin/menu')->with('deleteFail', 'Ошибка удаления. Обратитесь к администратору.');
     }
 }

@@ -1,3 +1,7 @@
+@php
+use App\Components\Menu as Menu;
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,12 +36,7 @@
 </head>
 <body>
 <nav class="pushy pushy-left">
-    <ul class="list-unstyled">
-        <li><a href="#minimal">Вконтакте</a></li>
-        <li><a href="#instagram">Инстаграм</a></li>
-        <li><a href="#direct">Живые участники в группу ВК</a></li>
-        <li><a href="#comment-group">Отзывы</a></li>
-    </ul>
+    {{ Menu::getMenu() }}
 </nav>
 
 <!-- Site Overlay -->
@@ -51,12 +50,7 @@
                 <div class="col-md-10 head-btn">
                     <div class="menu-btn" style="display: none;"><span class="hamburger">&#9776;</span></div>
                     <nav class="pushy-main">
-                        <ul class="list-unstyled">
-                            <li><a href="#minimal">Вконтакте</a></li>
-                            <li><a href="#instagram">Инстаграм</a></li>
-                            <li><a href="#direct">Живые участники в группу ВК</a></li>
-                            <li><a href="#comment-group">Отзывы</a></li>
-                        </ul>
+                        {{ Menu::getMenu() }}
                     </nav>
                 </div>
                 <div class="col-md-2 text-right head-contacts">
