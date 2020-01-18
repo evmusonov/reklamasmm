@@ -1,5 +1,6 @@
 @php
-use App\Components\Menu as Menu;
+use App\Components\MenuHelper as Menu;
+use App\Components\InfoblockHelper as IB;
 @endphp
 
 <!DOCTYPE html>
@@ -54,7 +55,7 @@ use App\Components\Menu as Menu;
                     </nav>
                 </div>
                 <div class="col-md-2 text-right head-contacts">
-                    <div class="email">personal-ns@ngs.ru</div>
+                    <div class="email">{!! IB::get('email') !!}</div>
                     <div class="tel">8-913-383-82-79 <span style="font-size: 10px;">WhatsApp</span></div>
                     <a class="tel-mobile" style="display: none;" href="tel:+79133838279">тел. 8-913-383-82-79</a>
                 </div>

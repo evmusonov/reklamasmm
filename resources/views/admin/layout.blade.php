@@ -22,7 +22,7 @@
     <header>
         <div class="row">
             <div class="col-sm-3">
-                Административная панель
+                <a href="/admin">Административная панель</a>
             </div>
             <div class="col-sm-9">
                 <div class="nav">
@@ -42,5 +42,9 @@
     <footer>
 
     </footer>
+    <script src="/../node_modules/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'editor' );
+    </script>
 </body>
 </html>
