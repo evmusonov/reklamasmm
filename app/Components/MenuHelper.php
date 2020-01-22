@@ -3,7 +3,7 @@ namespace App\Components;
 
 use App\Menu as ModelMenu;
 
-class Menu
+class MenuHelper
 {
     public static function getMenu()
     {

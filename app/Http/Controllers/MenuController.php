@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MenuController extends Controller
 {
@@ -23,30 +24,14 @@ class MenuController extends Controller
     {
         $validatedData = request()->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => 'required|unique:menus',
             'weight' => 'required',
             'status' => 'boolean'
         ]);
 
-        $exist = Menu::where('title', $validatedData['title'])->first();
-        if ($exist) {
-            return redirect('/admin/menu/create')->with('exist', 'Пункт меню с таким заголовком уже существует');
-        }
-
         Menu::create($validatedData);
 
         return redirect('/admin/menu');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Menu $menu)
-    {
-        //
     }
 
     public function edit(Menu $menu)
@@ -58,18 +43,13 @@ class MenuController extends Controller
     {
         $validatedData = request()->validate([
             'title' => 'required',
-            'link' => 'required',
+            'link' => [
+                'required',
+                Rule::unique('menus')->ignore($menu->link, 'link'),
+            ],
             'weight' => 'required',
             'status' => 'boolean'
         ]);
-
-        $exist = Menu::where([
-            ['title', $validatedData['title']],
-            ['title', '<>', $menu->title]
-        ])->first();
-        if ($exist) {
-            return redirect("/admin/menu/$menu->id/edit")->with('exist', 'Пункт меню с таким заголовком уже существует');
-        }
 
         $menu->update($validatedData);
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Infoblock;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class InfoblockController extends Controller
 {
@@ -24,14 +25,9 @@ class InfoblockController extends Controller
         $validatedData = request()->validate([
             'title' => 'required',
             'body' => 'required',
-            'alias' => 'required',
+            'alias' => 'required|unique:infoblocks',
             'status' => 'boolean'
         ]);
-
-        $exist = Infoblock::where('alias', $validatedData['alias'])->first();
-        if ($exist) {
-            return redirect('/admin/infoblocks/create')->with('exist', 'Инфоблок с таким алиасом уже существует');
-        }
 
         Infoblock::create($validatedData);
 
@@ -48,17 +44,12 @@ class InfoblockController extends Controller
         $validatedData = request()->validate([
             'title' => 'required',
             'body' => 'required',
-            'alias' => 'required',
+            'alias' => [
+                'required',
+                Rule::unique('infoblocks')->ignore($infoblock->alias, 'alias'),
+            ],
             'status' => 'boolean'
         ]);
-
-        $exist = Infoblock::where([
-            ['alias', $validatedData['alias']],
-            ['alias', '<>', $infoblock->alias]
-        ])->first();
-        if ($exist) {
-            return redirect("/admin/infoblocks/$infoblock->id/edit")->with('exist', 'Инфоблок с таким заголовком уже существует');
-        }
 
         $infoblock->update($validatedData);
 

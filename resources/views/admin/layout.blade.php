@@ -40,11 +40,20 @@
         </div>
     </main>
     <footer>
-
+        <div class="container">
+            Developed by <a href="https://github.com/evmusonov" target="_blank">Evgeny Musonov</a> &copy; 2020 - {{ date('Y') }}
+        </div>
     </footer>
     <script src="/../node_modules/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'editor' );
+        CKEDITOR.replace( 'editor', {
+            on: {
+                instanceReady: function (evt) {
+                    evt.editor.document.getBody().setStyles({color: 'black', 'font-size': '15px'})
+                }
+            },
+            customConfig: '/js/ckeditor_config.js'
+        });
     </script>
 </body>
 </html>
