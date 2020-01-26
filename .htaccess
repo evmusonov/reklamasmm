@@ -9,6 +9,7 @@ RewriteRule ^js/(.*)$ public/js/$1 [L]
 RewriteRule ^images/(.*)$ public/images/$1 [L]
 RewriteRule ^bootstrap/(.*)$ public/bootstrap/$1 [L]
 RewriteRule ^node_modules/(.*)$ node_modules/$1 [L]
+RewriteRule ^storage/(.*)$ storage/$1 [L]
 RewriteRule (.*) /public/$1
 
 RewriteCond %{REQUEST_FILENAME} !-f

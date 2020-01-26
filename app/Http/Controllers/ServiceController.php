@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Components\FileHelper;
+use App\File;
 use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +12,7 @@ use Illuminate\Validation\Rule;
 
 class ServiceController extends Controller
 {
-    private $imagePath = 'public/service';
+    private $module = 'service';
 
     public function index()
     {
@@ -28,22 +30,32 @@ class ServiceController extends Controller
     {
         $validatedData = request()->validate([
             'title' => 'required|unique:services',
-            'sub_title' => 'required',
+            'sub_title' => 'string|nullable',
             'body' => 'required',
             'weight' => 'required',
             'status' => 'boolean',
-            'price' => 'integer',
+            'price' => 'integer|nullable',
             'new' => 'boolean',
             'hit' => 'boolean',
             'sale' => 'boolean',
-            'image' => 'required|image|mimetypes:image/jpeg,image/png',
         ]);
 
-        Storage::putFileAs($this->imagePath, $validatedData['image'], $validatedData['image']->getClientOriginalName());
+        $service = Service::create($validatedData);
 
-        dump($validatedData); exit;
+        $file = new FileHelper($service->getAttributes()['id'], $this->module);
+        $file->upload()->resize(400, false, 'thumb',100);
 
-        Service::create($validatedData);
+//        if ($image->getError() == 0) {
+//            $filename = $image->getClientOriginalName();
+//            if (!count(File::where('filename', $filename)->get())) {
+//                File::create([
+//                    'filename'   => $filename,
+//                    'module'     => $this->module,
+//                    'content_id' => $service->getAttributes()['id'],
+//                ]);
+//                Storage::putFileAs($this->imagePath, $image, $filename);
+//            }
+//        }
 
         return redirect('/admin/services');
     }

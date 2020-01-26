@@ -46,6 +46,14 @@
                             <p class="alert alert-danger" role="alert">{{ $errors->first('weight') }}</p>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Обложка</label>
+                        <img src="{{ $service->getFile('thumb') }}">
+                        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                        @error('image')
+                        <p class="alert alert-danger" role="alert">{{ $errors->first('image') }}</p>
+                        @enderror
+                    </div>
                     <div class="form-group form-check">
                         <input type="hidden" name="new" value="0">
                         <input type="checkbox" class="form-check-input" name="new" id="new" value="1" {{ $service->new ? 'checked="checked"' : '' }}>
