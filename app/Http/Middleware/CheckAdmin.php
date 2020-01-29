@@ -17,7 +17,7 @@ class CheckAdmin
     public function handle($request, Closure $next)
     {
         if (!Auth::check()) {
-            abort(404);
+            return redirect('/admin/login');
         }
         return $next($request);
     }

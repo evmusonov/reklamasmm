@@ -1,5 +1,9 @@
 @extends('admin.layout')
 
+@php
+use App\Components\ImgHelper;
+@endphp
+
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -47,9 +51,15 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Обложка</label>
-                        <img src="{{ $service->getFile('thumb') }}">
-                        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                        <label for="exampleFormControlFile1" class="label-block">Обложка</label>
+                        @if ($service->getFile())
+                            <a onclick="deleteImage('{{ $service->getFile()->module }}', '{{ $service->getFile()->content_id }}', '{{ $service->getFile()->filename }}');" class="thumbnail" data-toggle="tooltip" data-placement="top" title="Удалить это изображение">
+                                <span class="close-img-button"><img src="/images/close.png"></span>
+                                <img src="{{ ImgHelper::getPath($service->getFile()->module, 'thumb', $service->getFile()->content_id, $service->getFile()->filename) }}">
+                            </a>
+                        @else
+                            <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                        @endif
                         @error('image')
                         <p class="alert alert-danger" role="alert">{{ $errors->first('image') }}</p>
                         @enderror

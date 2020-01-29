@@ -9,17 +9,17 @@ class Service extends Model
     public $guarded = [];
     public $module = 'service';
 
-    public function getFile($dir = '')
+    public function getFile()
     {
         $image = File::where([
             ['content_id', $this->id],
             ['module', $this->module]
         ])->first();
 
-        if (!empty($dir)) {
-            return File::$dir . $this->module . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR .  $dir . DIRECTORY_SEPARATOR . $image->filename;
+        if ($image) {
+            return $image;
         }
 
-        return File::$dir . $this->module . DIRECTORY_SEPARATOR . $this->id . DIRECTORY_SEPARATOR . $image->filename;
+        return null;
     }
 }

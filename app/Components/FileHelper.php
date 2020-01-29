@@ -79,6 +79,9 @@ class FileHelper
             if ($width === false && $height === false) {
                 //Throw Exception
             }
+            if (empty($dirForSave)) {
+                //Throw Exception
+            }
             /*
              * If width is false, width resizes depending on height
              */

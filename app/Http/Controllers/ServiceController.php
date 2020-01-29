@@ -29,7 +29,7 @@ class ServiceController extends Controller
     public function store()
     {
         $validatedData = request()->validate([
-            'title' => 'required|unique:services',
+            'title' => 'required',
             'sub_title' => 'string|nullable',
             'body' => 'required',
             'weight' => 'required',
@@ -44,18 +44,6 @@ class ServiceController extends Controller
 
         $file = new FileHelper($service->getAttributes()['id'], $this->module);
         $file->upload()->resize(400, false, 'thumb',100);
-
-//        if ($image->getError() == 0) {
-//            $filename = $image->getClientOriginalName();
-//            if (!count(File::where('filename', $filename)->get())) {
-//                File::create([
-//                    'filename'   => $filename,
-//                    'module'     => $this->module,
-//                    'content_id' => $service->getAttributes()['id'],
-//                ]);
-//                Storage::putFileAs($this->imagePath, $image, $filename);
-//            }
-//        }
 
         return redirect('/admin/services');
     }

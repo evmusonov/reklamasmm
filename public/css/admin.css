@@ -49,3 +49,30 @@ footer a:hover {
 .list {
     margin: 20px 0;
 }
+
+.label-block {
+    display: block;
+    clear: both;
+}
+
+.close-img-button {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    cursor: pointer;
+}
+
+.thumbnail {
+    position: relative;
+    display: block;
+    padding: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: border 0.2s ease-in-out;
+    -o-transition: border 0.2s ease-in-out;
+    transition: border 0.2s ease-in-out;
+}
