@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Components\FileHelper;
+use App\Components\FileManager;
 use App\File;
 use App\Service;
 use Illuminate\Http\Request;
@@ -42,8 +42,9 @@ class ServiceController extends Controller
 
         $service = Service::create($validatedData);
 
-        $file = new FileHelper($service->getAttributes()['id'], $this->module);
-        $file->upload()->resize(400, false, 'thumb',100);
+        $uploadManager = new FileManager();
+        $imageUploader = $uploadManager->createImageUploder('image');
+        $imageUploader->upload($this->module . DIRECTORY_SEPARATOR . $service->getAttributes()['id'])->resize(100,100,'');
 
         return redirect('/admin/services');
     }
