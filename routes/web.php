@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Route::get('/', 'MainController@index');
 
 Route::group(['middleware' => ['admin']], function () {
@@ -44,3 +46,10 @@ Route::group(['middleware' => ['admin']], function () {
 
 Route::post('/admin/login', 'AdminController@auth');
 Route::get('/admin/login', 'AdminController@login');
+
+Route::get('/error', function (Request $request) {
+    $value = $request->session()->get('message', function () {
+        return 'default';
+    });
+    echo $value; exit;
+})->name('error');

@@ -3,6 +3,7 @@ namespace App\Components;
 
 use App\Exceptions\ResizeDirNotFoundException;
 use App\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
@@ -105,7 +106,9 @@ class ImageUploader extends Uploader
                 // Throw Exception
             }
         } catch (Exception $exception) {
-            return redirect('/');
+            Log::error($exception->getMessage());
+            FileHelper::deleteFile($this->filePath, $this->filename);
+            abort(500, $exception->getMessage());
         }
     }
 
@@ -115,7 +118,7 @@ class ImageUploader extends Uploader
             //Throw Exception
         }
         if (empty($params['dirForSave'])) {
-            throw new ResizeDirNotFoundException('Resize dir is empty');
+            throw new ResizeDirNotFoundException('Directory for resized images is empty');
         }
     }
 }

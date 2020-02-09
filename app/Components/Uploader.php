@@ -21,7 +21,7 @@ abstract class Uploader
      * @var string
      */
     protected $storagePath = 'public/';
-    protected $filePath = __DIR__ . '/../../storage/app/';
+    protected $filePath = '/var/www/html/storage/app/';
     protected $filename;
     protected $contentId;
     protected $module;
