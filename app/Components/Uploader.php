@@ -1,6 +1,7 @@
 <?php
 namespace App\Components;
 
+use App\Exceptions\FileNotFoundException;
 use App\Exceptions\UploadedFileDoesNotExistException;
 use App\File;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,7 @@ abstract class Uploader
      * @var string
      */
     protected $storagePath = 'public/';
-    protected $filePath = '/var/www/html/storage/app/';
+    protected $filePath;
     protected $filename;
     protected $contentId;
     protected $module;
@@ -32,6 +33,7 @@ abstract class Uploader
     public function __construct($inputName)
     {
         $this->inputName = $inputName;
+        $this->filePath = $_SERVER['DOCUMENT_ROOT'] . '/../storage/app/';
     }
 
     public function upload($path)
@@ -60,8 +62,8 @@ abstract class Uploader
                 ]);
                 Storage::putFileAs($this->storagePath, $this->file, $this->filename);
 
-                if (!file_exists($this->filePath . DIRECTORY_SEPARATOR . $this->filename)) {
-                    //Exception
+                if (!file_exists($this->filePath . '/' . $this->filename)) {
+                    throw new FileNotFoundException('File not found');
                 }
 
                 return $this;

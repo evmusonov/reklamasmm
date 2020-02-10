@@ -33,8 +33,7 @@ class ImageUploader extends Uploader
         ];
 
         try {
-            $this->validateResizeParams($params);
-            if (!is_null($this->file)) {
+            if (!is_null($this->file) && $this->validateResizeParams($params)) {
                 $fullPath = $this->filePath . DIRECTORY_SEPARATOR . $this->filename;
                 list($currentWidth, $currentHeight, $type) = getimagesize($fullPath); // Получаем размеры и тип изображения (число)
                 /*
@@ -106,7 +105,7 @@ class ImageUploader extends Uploader
                 // Throw Exception
             }
         } catch (Exception $exception) {
-            Log::error($exception->getMessage());
+            Log::error('File: ' . $exception->getFile() . ', line: ' . $exception->getLine() . ', message: ' . $exception->getMessage());
             FileHelper::deleteFile($this->filePath, $this->filename);
             abort(500, $exception->getMessage());
         }
@@ -118,7 +117,7 @@ class ImageUploader extends Uploader
             //Throw Exception
         }
         if (empty($params['dirForSave'])) {
-            throw new ResizeDirNotFoundException('Directory for resized images is empty');
+            throw new ResizeDirNotFoundException('Directory for resized image is empty');
         }
     }
 }
