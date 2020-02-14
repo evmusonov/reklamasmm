@@ -13,6 +13,9 @@
                 @if (session('deleteFail'))
                     <p class="alert alert-danger" role="alert">{{ session('deleteFail') }}</p>
                 @endif
+                @if (session('uploadError'))
+                    <p class="alert alert-danger" role="alert">{{ session('uploadError') }}</p>
+                @endif
                 @if ($services)
                     <table class="table">
                         <thead class="thead-light">

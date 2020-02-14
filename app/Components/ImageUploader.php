@@ -33,38 +33,38 @@ class ImageUploader extends Uploader
         ];
 
         try {
-            if (!is_null($this->file) && $this->validateResizeParams($params)) {
-                $fullPath = $this->filePath . DIRECTORY_SEPARATOR . $this->filename;
-                list($currentWidth, $currentHeight, $type) = getimagesize($fullPath); // Получаем размеры и тип изображения (число)
-                /*
-                 * If width is false, width resizes depending on height
-                 */
-                if ($width === false) {
-                    $heightPercent = $height * 100 / $currentHeight;
-                    $width = round($currentWidth * $heightPercent / 100);
-                }
-                /*
-                 * If height is false do the same operation
-                 */
-                if ($height === false) {
-                    $widthPercent = $width * 100 / $currentWidth;
-                    $height = round($currentHeight * $widthPercent / 100);
-                }
+			if (!is_null($this->file) && $this->validateResizeParams($params)) {
+				$fullPath = $this->filePath . DIRECTORY_SEPARATOR . $this->filename;
+				list($currentWidth, $currentHeight, $type) = getimagesize($fullPath); // Получаем размеры и тип изображения (число)
+				/*
+				 * If width is false, width resizes depending on height
+				 */
+				if ($width === false) {
+					$heightPercent = $height * 100 / $currentHeight;
+					$width = round($currentWidth * $heightPercent / 100);
+				}
+				/*
+				 * If height is false do the same operation
+				 */
+				if ($height === false) {
+					$widthPercent = $width * 100 / $currentWidth;
+					$height = round($currentHeight * $widthPercent / 100);
+				}
 
-                $outFile = $this->filePath . DIRECTORY_SEPARATOR . $dirForSave . DIRECTORY_SEPARATOR . $this->filename;
+				$outFile = $this->filePath . DIRECTORY_SEPARATOR . $dirForSave . DIRECTORY_SEPARATOR . $this->filename;
 
-                $im = imagecreatefromjpeg($fullPath);
-                $im1 = imagecreatetruecolor($width, $height);
-                imagecopyresampled($im1, $im, 0, 0, 0, 0, $width, $height, imagesx($im), imagesy($im));
+				$im = imagecreatefromjpeg($fullPath);
+				$im1 = imagecreatetruecolor($width, $height);
+				imagecopyresampled($im1, $im, 0, 0, 0, 0, $width, $height, imagesx($im), imagesy($im));
 
-                $dir = $this->filePath . DIRECTORY_SEPARATOR . $dirForSave;
-                if (!is_dir($dir)) {
-                    mkdir($this->filePath . DIRECTORY_SEPARATOR . $dirForSave, 0755);
-                }
+				$dir = $this->filePath . DIRECTORY_SEPARATOR . $dirForSave;
+				if (!is_dir($dir)) {
+					mkdir($this->filePath . DIRECTORY_SEPARATOR . $dirForSave, 0755);
+				}
 
-                imagejpeg($im1, $outFile, $quality);
-                imagedestroy($im);
-                imagedestroy($im1);
+				imagejpeg($im1, $outFile, $quality);
+				imagedestroy($im);
+				imagedestroy($im1);
 
 
 //            $xCropPosition = 0;
@@ -101,14 +101,13 @@ class ImageUploader extends Uploader
 //            }
 //
 //            return $func($img_o, $this->filePath . DIRECTORY_SEPARATOR . $width . 'x' . $height . DIRECTORY_SEPARATOR . $this->filename); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
-            } else {
-                // Throw Exception
-            }
-        } catch (Exception $exception) {
-            Log::error('File: ' . $exception->getFile() . ', line: ' . $exception->getLine() . ', message: ' . $exception->getMessage());
-            FileHelper::deleteFile($this->filePath, $this->filename);
-            abort(500, $exception->getMessage());
-        }
+			} else {
+				// Throw Exception
+			}
+		} catch (Exception $exception) {
+			FileHelper::deleteFile($this->filePath, $this->filename);
+			throw $exception;
+		}
     }
 
     private function validateResizeParams($params)
@@ -117,7 +116,7 @@ class ImageUploader extends Uploader
             //Throw Exception
         }
         if (empty($params['dirForSave'])) {
-            throw new ResizeDirNotFoundException('Directory for resized image is empty');
+            throw new ResizeDirNotFoundException('No directory specified for resized image');
         }
     }
 }

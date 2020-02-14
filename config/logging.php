@@ -101,7 +101,7 @@ return [
         ],
 
         'upload' => [
-            'driver' => 'errorlog',
+            'driver' => 'single',
             'path' => storage_path('logs/upload.log'),
             'level' => 'error'
         ],
