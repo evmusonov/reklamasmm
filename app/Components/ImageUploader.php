@@ -1,7 +1,8 @@
 <?php
 namespace App\Components;
 
-use App\Exceptions\ResizeDirNotFoundException;
+use App\Exceptions\WrongSizesUploadException;
+use App\Exceptions\ResizeDirNotFoundUploadException;
 use App\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -112,11 +113,13 @@ class ImageUploader extends Uploader
 
     private function validateResizeParams($params)
     {
-        if ($params['width'] === false && $params['height'] === false) {
-            //Throw Exception
+        if (!is_int($params['width']) && !is_int($params['height'])) {
+            throw new WrongSizesUploadException('Wrong size params for uploaded image');
         }
         if (empty($params['dirForSave'])) {
-            throw new ResizeDirNotFoundException('No directory specified for resized image');
+            throw new ResizeDirNotFoundUploadException('No directory specified for resized image');
         }
+
+        return true;
     }
 }

@@ -18,6 +18,7 @@ Route::get('/', 'MainController@index');
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin', 'AdminController@index');
     Route::get('/admin/logout', 'AdminController@logout');
+    Route::post('/admin/delete-file', 'AdminController@deleteFile');
 
     //Menu
     Route::get('/admin/menu', 'MenuController@index');

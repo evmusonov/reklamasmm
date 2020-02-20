@@ -53,7 +53,7 @@ use App\Components\ImgHelper;
                     <div class="form-group">
                         <label for="exampleFormControlFile1" class="label-block">Обложка</label>
                         @if ($service->getFile())
-                            <a onclick="deleteImage('{{ $service->getFile()->module }}', '{{ $service->getFile()->content_id }}', '{{ $service->getFile()->filename }}');" class="thumbnail" data-toggle="tooltip" data-placement="top" title="Удалить это изображение">
+                            <a onclick="deleteFile('{{ $service->getFile()->module }}', '{{ $service->getFile()->content_id }}', '{{ $service->getFile()->filename }}');" class="thumbnail" data-toggle="tooltip" data-placement="top" title="Удалить это изображение">
                                 <span class="close-img-button"><img src="/images/close.png"></span>
                                 <img src="{{ ImgHelper::getPath($service->getFile()->module, 'thumb', $service->getFile()->content_id, $service->getFile()->filename) }}">
                             </a>

@@ -6,7 +6,7 @@ use App\Components\FileHelper;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class ResizeDirNotFoundException extends Exception
+class ResizeDirNotFoundUploadException extends Exception
 {
 	public function report()
 	{
