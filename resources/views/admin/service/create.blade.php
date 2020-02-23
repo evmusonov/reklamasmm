@@ -35,21 +35,21 @@
                         <label for="exampleInputPassword1">Текст</label>
                         <textarea id="editor" name="body" class="form-control">{{ old('body') }}</textarea>
                         @error('body')
-                        <p class="alert alert-danger" role="alert">{{ $errors->first('body') }}</p>
+                            <p class="alert alert-danger" role="alert">{{ $errors->first('body') }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Сортировка</label>
                         <input type="text" name="weight" class="form-control" value="{{ old('weight') }}">
                         @error('weight')
-                        <p class="alert alert-danger" role="alert">{{ $errors->first('weight') }}</p>
+                            <p class="alert alert-danger" role="alert">{{ $errors->first('weight') }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Обложка</label>
                         <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
                         @error('image')
-                        <p class="alert alert-danger" role="alert">{{ $errors->first('image') }}</p>
+                            <p class="alert alert-danger" role="alert">{{ $errors->first('image') }}</p>
                         @enderror
                     </div>
                     <div class="form-group form-check">
@@ -57,7 +57,7 @@
                         <input type="checkbox" class="form-check-input" name="new" id="new" value="1">
                         <label class="form-check-label" for="new">Новинка</label>
                         @error('new')
-                        <p class="alert alert-danger" role="alert">{{ $errors->first('new') }}</p>
+                            <p class="alert alert-danger" role="alert">{{ $errors->first('new') }}</p>
                         @enderror
                     </div>
                     <div class="form-group form-check">
@@ -65,7 +65,7 @@
                         <input type="checkbox" class="form-check-input" name="v" id="hit" value="1">
                         <label class="form-check-label" for="hit">Хит</label>
                         @error('hit')
-                        <p class="alert alert-danger" role="alert">{{ $errors->first('hit') }}</p>
+                            <p class="alert alert-danger" role="alert">{{ $errors->first('hit') }}</p>
                         @enderror
                     </div>
                     <div class="form-group form-check">
@@ -73,7 +73,7 @@
                         <input type="checkbox" class="form-check-input" name="sale" id="sale" value="1">
                         <label class="form-check-label" for="sale">Скидка</label>
                         @error('sale')
-                        <p class="alert alert-danger" role="alert">{{ $errors->first('sale') }}</p>
+                            <p class="alert alert-danger" role="alert">{{ $errors->first('sale') }}</p>
                         @enderror
                     </div>
                     <div class="form-group form-check">

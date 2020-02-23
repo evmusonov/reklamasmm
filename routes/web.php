@@ -43,6 +43,14 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/services/{service}/edit', 'ServiceController@edit');
     Route::put('/admin/services/{service}', 'ServiceController@update');
     Route::get('/admin/services/{service}/delete', 'ServiceController@destroy');
+
+    //Reviews
+    Route::get('/admin/reviews', 'ReviewController@index');
+    Route::get('/admin/reviews/create', 'ReviewController@create');
+    Route::post('/admin/reviews', 'ReviewController@store');
+    Route::get('/admin/reviews/{review}/edit', 'ReviewController@edit');
+    Route::put('/admin/reviews/{review}', 'ReviewController@update');
+    Route::get('/admin/reviews/{review}/delete', 'ReviewController@destroy');
 });
 
 Route::post('/admin/login', 'AdminController@auth');

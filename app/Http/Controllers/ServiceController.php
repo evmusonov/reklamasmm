@@ -73,6 +73,10 @@ class ServiceController extends Controller
 
         $service->update($validatedData);
 
+        $uploadManager = new FileManager();
+        $imageUploader = $uploadManager->createImageUploder('image');
+        $imageUploader->upload($this->module . '/' . $service->id)->resize(100,false,'thumb');
+
         return redirect('/admin/services');
     }
 

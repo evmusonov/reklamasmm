@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Components\FileHelper;
 use App\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,11 +49,10 @@ class AdminController extends Controller
 
     public function deleteFile()
     {
-        return true;
         if(request('module') && request('content_id') && request('filename')) {
             $filePath = config('filehelper.pathToStorage') . '/app/public/' . request('module') . '/' . request('content_id');
             if (is_dir($filePath)) {
-                rmdir($filePath);
+                FileHelper::deleteDirectory($filePath);
             }
             File::where([
                 ['module', request('module')],
@@ -60,9 +60,9 @@ class AdminController extends Controller
                 ['filename', request('filename')]
             ])->delete();
 
-            return true;
+            return 1;
         }
 
-        return false;
+        return 0;
     }
 }

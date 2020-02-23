@@ -10,7 +10,7 @@ class FileHelper
         self::deleteFromDb($directory, $filename);
     }
 
-    private static function deleteDirectory($directory)
+    public static function deleteDirectory($directory)
     {
         $files = array_diff(scandir($directory), ['.','..']);
         foreach ($files as $file) {

@@ -13,13 +13,15 @@ class ImageUploader extends Uploader
     protected function validate()
     {
         $mimes = implode(",", config('filehelper.imageExtensions'));
-        $validatedData = request()->validate([
-            $this->inputName => "image|mimes:$mimes|max:$this->maxSize",
-        ]);
-        $this->file = $validatedData[$this->inputName];
+        if (request($this->inputName)) {
+            $validatedData = request()->validate([
+                $this->inputName => "image|mimes:$mimes|max:$this->maxSize",
+            ]);
+            $this->file = $validatedData[$this->inputName];
 
-        if (is_null($this->file)) {
-            return false;
+            if (is_null($this->file)) {
+                return false;
+            }
         }
 
         return true;

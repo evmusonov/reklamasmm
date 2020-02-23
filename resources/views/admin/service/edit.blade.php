@@ -12,7 +12,7 @@ use App\Components\ImgHelper;
                 @if (session('exist'))
                     <p class="alert alert-danger" role="alert">{{ session('exist') }}</p>
                 @endif
-                <form method="POST" action="/admin/services/{{ $service->id }}">
+                <form method="POST" action="/admin/services/{{ $service->id }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -50,10 +50,10 @@ use App\Components\ImgHelper;
                             <p class="alert alert-danger" role="alert">{{ $errors->first('weight') }}</p>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group image">
                         <label for="exampleFormControlFile1" class="label-block">Обложка</label>
                         @if ($service->getFile())
-                            <a onclick="deleteFile('{{ $service->getFile()->module }}', '{{ $service->getFile()->content_id }}', '{{ $service->getFile()->filename }}');" class="thumbnail" data-toggle="tooltip" data-placement="top" title="Удалить это изображение">
+                            <a onclick="deleteFile('{{ $service->getFile()->module }}', '{{ $service->getFile()->content_id }}', '{{ $service->getFile()->filename }}');" id="{{ $service->getFile()->module }}{{ $service->getFile()->content_id }}" class="thumbnail" data-toggle="tooltip" data-placement="top" title="Удалить это изображение">
                                 <span class="close-img-button"><img src="/images/close.png"></span>
                                 <img src="{{ ImgHelper::getPath($service->getFile()->module, 'thumb', $service->getFile()->content_id, $service->getFile()->filename) }}">
                             </a>

@@ -14,7 +14,8 @@ function deleteFile(module, content_id, filename) {
                 filename: filename
             })
             .done(function (data) {
-                console.log(data);
+                $('#' + module + content_id).remove();
+                $('.image').append('<input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">');
             });
     }
 }
