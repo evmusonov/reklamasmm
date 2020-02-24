@@ -2,6 +2,7 @@
 use App\Components\MenuHelper as Menu;
 use App\Components\InfoblockHelper as IB;
 use App\Components\ServiceHelper;
+use App\Components\ReviewHelper;
 @endphp
 
 <!DOCTYPE html>
@@ -121,76 +122,7 @@ use App\Components\ServiceHelper;
     </div>
 </section>
 {{ ServiceHelper::getServices() }}
-<section id="comment-group" class="commentback wow fadeInUp" data-wow-delay="300ms">
-    <!-- change the image in style.css to the class .number .container-fluid [approximately row 102] -->
-    <div class="container">
-        <div class="row">
-            <div class="section-title">
-                <h3 class="section-title-h3">Отзывы по продвижению</h3>
-            </div>
-            <div class="col-md-4">
-                <div class="avatar">
-                    <img src="/images/ava1.png">
-                </div>
-                <div class="comment">
-                    Благодарю за успешное развитие моей группы Детская обувь Башмачок.
-                    Группа была создана с нуля, заполнены фотоальбомы с сайта, раздел Товары, проведен розыгрыш.
-                    За месяц в группу вступили 220 человек целевой аудитории из Новосибирска. Посты в группе оформлялись регулярно с учетом интересов аудитории.
-                </div>
-                <div class="name-and-date">
-                    <div class="comment-name">
-                        Анатолий Ионов
-                    </div>
-                    <div class="comment-date">
-                        17 янв 2016
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="avatar">
-                    <img src="/images/ava2.png">
-                </div>
-                <div class="comment">
-                    Хочу сказать большое спасибо Елене, администратору моей группы Доставка суши пиццы Студия Вкуса.
-                    Я обратилась к Елене по рекомендации моего коллеги, с которым они до этого уже успешно работали.
-                    И ни разу не пожалела о своем решении. Работаем вместе уже больше года, посты в группе выкладываются регулярно,
-                    и реклама наборов суши и развлекательные. Группа заметно оживилась, выросло количество участников.
-                    А самое главное через группу приходят клиенты. Будем продолжать сотрудничество и дальше, работы Елены меня устраивает на все 100%!
-                </div>
-                <div class="name-and-date">
-                    <div class="comment-name">
-                        Лилия Мамедова
-                    </div>
-                    <div class="comment-date">
-                        12 мая 2018
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="avatar">
-                    <img src="/images/ava3.png">
-                </div>
-                <div class="comment">
-                    Елена, хочу сказать спасибо большое за вашу работу. Все с вами легко и просто. Вы профессионал своего дела,
-                    на вас можно полностью положишься и доверить ведение группы. Со знанием дела и правильным подходом. Приятно,
-                    что есть действительно такие люди, которые не только обещают, но и делают. Надеюсь наше с вами сотрудничество
-                    продлится годами и будет продуктивным.
-                </div>
-                <div class="name-and-date">
-                    <div class="comment-name">
-                        Вера Щербина
-                    </div>
-                    <div class="comment-date">
-                        16 мая 2018
-                    </div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="more-comment">Больше отзывов о продвижении Вы сможете найти в нашей группе Вконтакте</div>
-            <div class="comment-link"><a href="https://vk.com/effectiv_group">vk.com/effectiv_group</a></div>
-        </div>
-    </div>
-</section>
+{{ ReviewHelper::getReviews() }}
 <section id="photos" class="whiteback wow fadeInUp" data-wow-delay="300ms">
     <div class="container">
         <div class="row">

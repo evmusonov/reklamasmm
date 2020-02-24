@@ -22,9 +22,11 @@ class ImageUploader extends Uploader
             if (is_null($this->file)) {
                 return false;
             }
-        }
 
-        return true;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function resize($width, $height, $dirForSave, $quality = 100)
@@ -104,8 +106,6 @@ class ImageUploader extends Uploader
 //            }
 //
 //            return $func($img_o, $this->filePath . DIRECTORY_SEPARATOR . $width . 'x' . $height . DIRECTORY_SEPARATOR . $this->filename); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
-			} else {
-				// Throw Exception
 			}
 		} catch (Exception $exception) {
 			FileHelper::deleteFile($this->filePath, $this->filename);

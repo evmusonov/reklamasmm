@@ -65,10 +65,10 @@ abstract class Uploader
                 if (!file_exists($this->filePath . '/' . $this->filename)) {
                     throw new FileNotFoundUploadException('Uploaded file not found, check your storage path in the uploader config');
                 }
-
-                return $this;
             }
         }
+
+        return $this;
     }
 
     abstract protected function validate();

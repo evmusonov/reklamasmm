@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.10",
         "laravel/tinker": "^2.0",
+        "evmusonov/laravel-file-helper": "dev-master",
         "ext-gd": "*"
     },
     "require-dev": {

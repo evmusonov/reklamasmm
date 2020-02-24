@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Components\ImgHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
@@ -9,7 +10,7 @@ class Review extends Model
     public $guarded = [];
     public $module = 'review';
 
-    public function getFile()
+    public function getFile($dir = '')
     {
         $image = File::where([
             ['content_id', $this->id],
@@ -17,7 +18,7 @@ class Review extends Model
         ])->first();
 
         if ($image) {
-            return $image;
+            return ImgHelper::getPath($this->module, $dir, $this->id, $image->filename);
         }
 
         return null;

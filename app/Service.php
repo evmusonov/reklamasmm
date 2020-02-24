@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Components\ImgHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
@@ -17,7 +18,7 @@ class Service extends Model
         ])->first();
 
         if ($image) {
-            return $image;
+            return ImgHelper::getPath($this->module, '', $this->id, $image->filename);
         }
 
         return null;
