@@ -1,6 +1,6 @@
 @if ($services)
     @foreach ($services as $item)
-        <section id="tiktok" class="service wow fadeInUp" data-wow-delay="300ms">
+        <section id="item-{{ $item->id }}" class="service wow fadeInUp" data-wow-delay="300ms">
             <!-- change the image in style.css to the class .number .container-fluid [approximately row 102] -->
             <div class="container">
                 <div class="row">
@@ -18,7 +18,9 @@
                     </div>
                     <div class="col-md-6">
                         {!! $item->body !!}
-                        <p class="section-price">{{ $item->price }} руб./месяц</p>
+                        @if (!empty($item->price))
+                            <p class="section-price">{{ $item->price }} руб./месяц</p>
+                        @endif
                         <a href="#iw-modal" class="btn btn-danger iw-modal-btn">ЗАКАЗАТЬ</a>
                     </div>
                 </div>
