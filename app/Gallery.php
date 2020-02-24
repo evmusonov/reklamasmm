@@ -5,10 +5,10 @@ namespace App;
 use App\Components\ImgHelper;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Gallery extends Model
 {
     public $guarded = [];
-    public $module = 'service';
+    public $module = 'gallery';
 
     public function getFile()
     {

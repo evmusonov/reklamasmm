@@ -123,44 +123,7 @@ use App\Components\ReviewHelper;
 </section>
 {{ ServiceHelper::getServices() }}
 {{ ReviewHelper::getReviews() }}
-<section id="photos" class="whiteback wow fadeInUp" data-wow-delay="300ms">
-    <div class="container">
-        <div class="row">
-            <div class="section-title">
-                <h3 class="section-title-h3">Сертификаты</h3>
-            </div>
-            <div class="masonry image-gallery">
-                <div class="grid-sizer"></div>
-                <div class="gutter-sizer"></div>
-                <div class="item">
-                    <a href="/images/sert1.jpg">
-                        <img src="/images/sert1_mini.jpg" alt="" />
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="/images/sert2.jpg">
-                        <img src="/images/sert2_mini.jpg" alt="" />
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="/images/sert3.jpg">
-                        <img src="/images/sert3_mini.jpg" alt="" />
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="/images/sert5.jpg">
-                        <img src="/images/sert5.jpg" alt="" />
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="/images/sert4.jpg">
-                        <img src="/images/sert4_mini.jpg" alt="" />
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+{{ \App\Components\GalleryHelper::getGallery() }}
 <section id="contact" class="prefooter wow fadeInUp" data-wow-delay="300ms">
     <!-- change the image in style.css to the class .prefooter .container-fluid [approximately row 154] -->
     <div class="container-fluid">

@@ -9,7 +9,7 @@
                         <h4 class="section-title-h4">{{ $item->sub_title }}</h4>
                     </div>
                     <div class="col-md-6 block-thumb">
-                        <img src="{{ $item->getFile('thumb') }}">
+                        <img src="{{ $item->getThumb('thumb') }}">
                     </div>
                     <div class="col-md-6">
                         {!! $item->body !!}

@@ -9,7 +9,7 @@
                 @foreach($reviews as $item)
                     <div class="col-md-4">
                         <div class="avatar">
-                            <img src="{{ $item->getFile('thumb') }}">
+                            <img src="{{ $item->getThumb('thumb') }}">
                         </div>
                         <div class="comment">
                             {!! $item->body !!}

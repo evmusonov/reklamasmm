@@ -51,6 +51,14 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin/reviews/{review}/edit', 'ReviewController@edit');
     Route::put('/admin/reviews/{review}', 'ReviewController@update');
     Route::get('/admin/reviews/{review}/delete', 'ReviewController@destroy');
+
+    //Gallery
+    Route::get('/admin/gallery', 'GalleryController@index');
+    Route::get('/admin/gallery/create', 'GalleryController@create');
+    Route::post('/admin/gallery', 'GalleryController@store');
+    Route::get('/admin/gallery/{image}/edit', 'GalleryController@edit');
+    Route::put('/admin/gallery/{image}', 'GalleryController@update');
+    Route::get('/admin/gallery/{image}/delete', 'GalleryController@destroy');
 });
 
 Route::post('/admin/login', 'AdminController@auth');
