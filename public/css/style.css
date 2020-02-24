@@ -923,6 +923,21 @@ footer p
 .head-contacts {
     margin-top: 5px;
 }
+#comment-group .avatar img {
+    border-radius: 200px;
+}
+.badge {
+    color: #fff;
+}
+.badge-new {
+    background: #de3a3a;
+}
+.badge-sale {
+    background: #3a8fde;
+}
+.badge-hit {
+    background: #decd3a;
+}
 @media screen and (max-width: 1200px) {
     .big-title {
         font-size: 56px;

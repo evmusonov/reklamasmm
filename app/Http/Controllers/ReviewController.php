@@ -40,7 +40,7 @@ class ReviewController extends Controller
 
         $uploadManager = new FileManager();
         $imageUploader = $uploadManager->createImageUploder('image');
-        $imageUploader->upload($this->module . '/' . $review->getAttributes()['id'])->resize(100,100,'thumb');
+        $imageUploader->upload($this->module . '/' . $review->id)->resize(200,false,'thumb');
 
         return redirect('/admin/reviews');
     }
@@ -63,7 +63,7 @@ class ReviewController extends Controller
 
         $uploadManager = new FileManager();
         $imageUploader = $uploadManager->createImageUploder('image');
-        $imageUploader->upload($this->module . '/' . $review->id)->resize(100,false,'thumb');
+        $imageUploader->upload($this->module . '/' . $review->id)->resize(200,false,'thumb');
 
         return redirect('/admin/reviews');
     }

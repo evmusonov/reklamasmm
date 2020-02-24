@@ -13,7 +13,7 @@ class ImageUploader extends Uploader
     protected function validate()
     {
         $mimes = implode(",", config('filehelper.imageExtensions'));
-        if (request($this->inputName)) {
+        if (request()->has($this->inputName)) {
             $validatedData = request()->validate([
                 $this->inputName => "image|mimes:$mimes|max:$this->maxSize",
             ]);
@@ -39,6 +39,8 @@ class ImageUploader extends Uploader
 
         try {
 			if (!is_null($this->file) && $this->validateResizeParams($params)) {
+			    $mimeType = $this->file->getMimeType();
+			    $extension = explode('/', $mimeType)[1];
 				$fullPath = $this->filePath . DIRECTORY_SEPARATOR . $this->filename;
 				list($currentWidth, $currentHeight, $type) = getimagesize($fullPath); // Получаем размеры и тип изображения (число)
 				/*
@@ -58,18 +60,30 @@ class ImageUploader extends Uploader
 
 				$outFile = $this->filePath . DIRECTORY_SEPARATOR . $dirForSave . DIRECTORY_SEPARATOR . $this->filename;
 
-				$im = imagecreatefromjpeg($fullPath);
-				$im1 = imagecreatetruecolor($width, $height);
-				imagecopyresampled($im1, $im, 0, 0, 0, 0, $width, $height, imagesx($im), imagesy($im));
+				$creatfrom = 'imagecreatefrom' . $extension;
+				$im = $creatfrom($fullPath);
+				if ($extension == 'png') {
+                    $white = imagecolorexact($im, 255, 255, 255);
+                    imagecolortransparent($im, $white);
+                } else {
+                    $im1 = imagecreatetruecolor($width, $height);
+                    imagecopyresampled($im1, $im, 0, 0, 0, 0, $width, $height, imagesx($im), imagesy($im));
+                }
 
 				$dir = $this->filePath . DIRECTORY_SEPARATOR . $dirForSave;
 				if (!is_dir($dir)) {
 					mkdir($this->filePath . DIRECTORY_SEPARATOR . $dirForSave, 0755);
 				}
 
-				imagejpeg($im1, $outFile, $quality);
+				$image = 'image' . $extension;
+				if ($extension == 'png') {
+                    $quality = 2;
+                    $image($im, $outFile, $quality);
+                } else {
+                    $image($im1, $outFile, $quality);
+                    imagedestroy($im1);
+                }
 				imagedestroy($im);
-				imagedestroy($im1);
 
 
 //            $xCropPosition = 0;

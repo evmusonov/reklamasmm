@@ -5,7 +5,12 @@
             <div class="container">
                 <div class="row">
                     <div class="section-title">
-                        <h3 class="section-title-h3">{{ $item->title }}<span style="color: red; font-style: italic;">{{ $item->new ? ' | Новинка!' : '' }}</span></h3>
+                        <h3 class="section-title-h3">
+                            {{ $item->title }}
+                            {!! $item->new ? '<span class="badge badge-pill badge-new">Новинка</span>' : '' !!}
+                            {!! $item->hit ? '<span class="badge badge-pill badge-hit">Хит!</span>' : '' !!}
+                            {!! $item->sale ? '<span class="badge badge-pill badge-sale">Скидка</span>' : '' !!}
+                        </h3>
                         <h4 class="section-title-h4">{{ $item->sub_title }}</h4>
                     </div>
                     <div class="col-md-6 block-thumb">

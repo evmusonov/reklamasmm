@@ -74,7 +74,7 @@ use App\Components\ImgHelper;
                     </div>
                     <div class="form-group form-check">
                         <input type="hidden" name="hit" value="0">
-                        <input type="checkbox" class="form-check-input" name="v" id="hit" value="1" {{ $service->hit ? 'checked="checked"' : '' }}>
+                        <input type="checkbox" class="form-check-input" name="hit" id="hit" value="1" {{ $service->hit ? 'checked="checked"' : '' }}>
                         <label class="form-check-label" for="hit">Хит</label>
                         @error('hit')
                             <p class="alert alert-danger" role="alert">{{ $errors->first('hit') }}</p>

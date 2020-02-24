@@ -45,7 +45,7 @@ class GalleryController extends Controller
         return view('admin.gallery.edit', ['image' => $image]);
     }
 
-    public function update(Request $request, Gallery $gallery)
+    public function update(Request $request, Gallery $image)
     {
         $validatedData = request()->validate([
             'title' => 'required',
@@ -53,18 +53,18 @@ class GalleryController extends Controller
             'status' => 'boolean',
         ]);
 
-        $gallery->update($validatedData);
+        $image->update($validatedData);
 
         $uploadManager = new FileManager();
         $imageUploader = $uploadManager->createImageUploder('image');
-        $imageUploader->upload($this->module . '/' . $gallery->id)->resize(300,false,'thumb');
+        $imageUploader->upload($this->module . '/' . $image->id)->resize(300,false,'thumb');
 
         return redirect('/admin/gallery');
     }
 
-    public function destroy(Gallery $gallery)
+    public function destroy(Gallery $image)
     {
-        if ($gallery->delete()) {
+        if ($image->delete()) {
             return redirect('/admin/gallery')->with('deleteSuccess', 'Запись успешно удалена.');
         }
 
