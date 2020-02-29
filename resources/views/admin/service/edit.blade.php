@@ -55,7 +55,7 @@ use App\Components\ImgHelper;
                         @if ($service->getFile())
                             <a onclick="deleteFile('{{ $service->getFile()->module }}', '{{ $service->getFile()->content_id }}', '{{ $service->getFile()->filename }}');" id="{{ $service->getFile()->module }}{{ $service->getFile()->content_id }}" class="thumbnail" data-toggle="tooltip" data-placement="top" title="Удалить это изображение">
                                 <span class="close-img-button"><img src="/images/close.png"></span>
-                                <img src="{{ ImgHelper::getPath($service->getFile()->module, 'thumb', $service->getFile()->content_id, $service->getFile()->filename) }}">
+                                <img src="{{ ImgHelper::getPath($service->getFile()->module, '200x200', $service->getFile()->content_id, $service->getFile()->filename) }}">
                             </a>
                         @else
                             <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">

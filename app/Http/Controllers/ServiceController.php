@@ -44,7 +44,7 @@ class ServiceController extends Controller
 
         $uploadManager = new FileManager();
         $imageUploader = $uploadManager->createImageUploder('image');
-        $imageUploader->upload($this->module . '/' . $service->getAttributes()['id'])->resize(400,false,'thumb');
+        $imageUploader->upload($this->module . '/' . $service->getAttributes()['id'])->resize('200x200');
 
         return redirect('/admin/services');
     }

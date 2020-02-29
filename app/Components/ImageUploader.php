@@ -29,12 +29,16 @@ class ImageUploader extends Uploader
         }
     }
 
-    public function resize($width, $height, $dirForSave, $quality = 100)
+    public function resize($versionName)
     {
+        $versions = config('filehelper.versions');
+        $versionData = $versions[$versionName];
+
         $params = [
-            'width'      => $width,
-            'height'     => $height,
-            'dirForSave' => $dirForSave
+            'width'      => $versionData['width'],
+            'height'     => $versionData['height'],
+            'quality'    => $versionData['quality'],
+            'dirForSave' => $versionName
         ];
 
         try {
@@ -42,23 +46,35 @@ class ImageUploader extends Uploader
 			    $mimeType = $this->file->getMimeType();
 			    $extension = explode('/', $mimeType)[1];
 				$fullPath = $this->filePath . DIRECTORY_SEPARATOR . $this->filename;
-				list($currentWidth, $currentHeight, $type) = getimagesize($fullPath); // Получаем размеры и тип изображения (число)
-				/*
-				 * If width is false, width resizes depending on height
-				 */
-				if ($width === false) {
-					$heightPercent = $height * 100 / $currentHeight;
-					$width = round($currentWidth * $heightPercent / 100);
-				}
-				/*
-				 * If height is false do the same operation
-				 */
-				if ($height === false) {
-					$widthPercent = $width * 100 / $currentWidth;
-					$height = round($currentHeight * $widthPercent / 100);
-				}
+				list($currentWidth, $currentHeight) = getimagesize($fullPath); // Получаем размеры и тип изображения (число)
+				$newHeight = $params['height'];
+				$newWidth = $params['width'];
+                if (is_int($params['width']) && is_int($params['height'])) {
+				    if ($currentWidth > $currentHeight) {
+                        $widthPercent = $params['width'] * 100 / $currentWidth;
+                        $newHeight = round($currentHeight * $widthPercent / 100);
+                    } else {
+                        $heightPercent = $params['height'] * 100 / $currentHeight;
+                        $newWidth = round($currentWidth * $heightPercent / 100);
+                    }
+                } else {
+                    /*
+                     * If width is false, width resizes depending on height
+                     */
+                    if ($params['width'] === false) {
+                        $heightPercent = $params['height'] * 100 / $currentHeight;
+                        $newWidth = round($currentWidth * $heightPercent / 100);
+                    }
+                    /*
+                     * If height is false do the same operation
+                     */
+                    if ($params['height'] === false) {
+                        $widthPercent = $params['width'] * 100 / $currentWidth;
+                        $newHeight = round($currentHeight * $widthPercent / 100);
+                    }
+                }
 
-				$outFile = $this->filePath . DIRECTORY_SEPARATOR . $dirForSave . DIRECTORY_SEPARATOR . $this->filename;
+				$outFile = $this->filePath . DIRECTORY_SEPARATOR . $params['dirForSave'] . DIRECTORY_SEPARATOR . $this->filename;
 
 				$creatfrom = 'imagecreatefrom' . $extension;
 				$im = $creatfrom($fullPath);
@@ -66,13 +82,22 @@ class ImageUploader extends Uploader
                     $white = imagecolorexact($im, 255, 255, 255);
                     imagecolortransparent($im, $white);
                 } else {
-                    $im1 = imagecreatetruecolor($width, $height);
-                    imagecopyresampled($im1, $im, 0, 0, 0, 0, $width, $height, imagesx($im), imagesy($im));
+                    $im1 = imagecreatetruecolor($params['width'], $params['height']);
+                    $dstX = 0;
+                    $dstY = 0;
+                    if ($params['width'] <= $params['height']) {
+                        $dstX = ($params['width'] - $newWidth) / 2;
+                    } else {
+                        $dstY = ($params['height'] - $newHeight) / 2;
+                    }
+                    $white = imagecolorallocate($im1, 255, 255, 255);
+                    imagefill($im1, 0, 0, $white); // Custom background color for new image
+                    imagecopyresampled($im1, $im, $dstX, $dstY, 0, 0, $newWidth, $newHeight, imagesx($im), imagesy($im));
                 }
 
-				$dir = $this->filePath . DIRECTORY_SEPARATOR . $dirForSave;
+				$dir = $this->filePath . DIRECTORY_SEPARATOR . $params['dirForSave'];
 				if (!is_dir($dir)) {
-					mkdir($this->filePath . DIRECTORY_SEPARATOR . $dirForSave, 0755);
+					mkdir($this->filePath . DIRECTORY_SEPARATOR . $params['dirForSave'], 0755);
 				}
 
 				$image = 'image' . $extension;
@@ -80,46 +105,36 @@ class ImageUploader extends Uploader
                     $quality = 2;
                     $image($im, $outFile, $quality);
                 } else {
-                    $image($im1, $outFile, $quality);
+                    $image($im1, $outFile, $params['quality']);
                     imagedestroy($im1);
                 }
 				imagedestroy($im);
 
 
-//            $xCropPosition = 0;
-//            $yCropPosition = 0;
-//            $fullPath = $this->filePath . DIRECTORY_SEPARATOR . $this->filename;
+//                $xCropPosition = 0;
+//                $yCropPosition = 0;
+//                $fullPath = $outFile;
 //
-//            if (($width < 0) || ($height < 0)) {
-//                echo "Некорректные входные параметры";
-//                return false;
-//            }
+//                list($w_i, $h_i, $type) = getimagesize($fullPath); // Получаем размеры и тип изображения (число)
+//                $types = ["", "gif", "jpeg", "png"]; // Массив с типами изображений
+//                $ext = $types[$type]; // Зная "числовой" тип изображения, узнаём название типа
 //
-//            list($w_i, $h_i, $type) = getimagesize($fullPath); // Получаем размеры и тип изображения (число)
-//            $types = ["", "gif", "jpeg", "png"]; // Массив с типами изображений
-//            $ext = $types[$type]; // Зная "числовой" тип изображения, узнаём название типа
+//                if ($ext) {
+//                    $func = 'imagecreatefrom' . $ext; // Получаем название функции, соответствующую типу, для создания изображения
+//                    $img_i = $func($fullPath); // Создаём дескриптор для работы с исходным изображением
+//                } else {
+//                    echo 'Некорректное изображение'; // Выводим ошибку, если формат изображения недопустимый
+//                    return false;
+//                }
 //
-//            if ($ext) {
-//                $func = 'imagecreatefrom' . $ext; // Получаем название функции, соответствующую типу, для создания изображения
-//                $img_i = $func($fullPath); // Создаём дескриптор для работы с исходным изображением
-//            } else {
-//                echo 'Некорректное изображение'; // Выводим ошибку, если формат изображения недопустимый
-//                return false;
-//            }
+//                if ($xCropPosition + $width > $w_i) $w_o = $w_i - $xCropPosition; // Если ширина выходного изображения больше исходного (с учётом x_o), то уменьшаем её
+//                if ($yCropPosition + $height > $h_i) $h_o = $h_i - $yCropPosition; // Если высота выходного изображения больше исходного (с учётом y_o), то уменьшаем её
 //
-//            if ($xCropPosition + $width > $w_i) $w_o = $w_i - $xCropPosition; // Если ширина выходного изображения больше исходного (с учётом x_o), то уменьшаем её
-//            if ($yCropPosition + $height > $h_i) $h_o = $h_i - $yCropPosition; // Если высота выходного изображения больше исходного (с учётом y_o), то уменьшаем её
+//                $img_o = imagecreatetruecolor($width, $height); // Создаём дескриптор для выходного изображения
+//                imagecopy($img_o, $img_i, 0, 0, $xCropPosition, $yCropPosition, $width, $height); // Переносим часть изображения из исходного в выходное
+//                $func = 'image' . $ext; // Получаем функция для сохранения результата
 //
-//            $img_o = imagecreatetruecolor($width, $height); // Создаём дескриптор для выходного изображения
-//            imagecopy($img_o, $img_i, 0, 0, $xCropPosition, $yCropPosition, $width, $height); // Переносим часть изображения из исходного в выходное
-//            $func = 'image' . $ext; // Получаем функция для сохранения результата
-//
-//            $dir = $this->filePath . DIRECTORY_SEPARATOR . $width . 'x' . $height;
-//            if (!is_dir($dir)) {
-//                mkdir($this->filePath . DIRECTORY_SEPARATOR . $width . 'x' . $height, 0664);
-//            }
-//
-//            return $func($img_o, $this->filePath . DIRECTORY_SEPARATOR . $width . 'x' . $height . DIRECTORY_SEPARATOR . $this->filename); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
+//                $func($img_o, $fullPath); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
 			}
 		} catch (Exception $exception) {
 			FileHelper::deleteFile($this->filePath, $this->filename);
