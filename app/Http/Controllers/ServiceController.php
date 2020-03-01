@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Components\FileHelper;
 use App\Components\FileManager;
 use App\File;
 use App\Service;
@@ -75,7 +76,7 @@ class ServiceController extends Controller
 
         $uploadManager = new FileManager();
         $imageUploader = $uploadManager->createImageUploder('image');
-        $imageUploader->upload($this->module . '/' . $service->id)->resize(400,false,'thumb');
+        $imageUploader->upload($this->module . '/' . $service->id)->resize('200x200');
 
         return redirect('/admin/services');
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3de0c5e361275128f689dc31d889325d",
+    "content-hash": "6217a4832700a078e893a24a2f7cc988",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -279,39 +279,6 @@
                 "validator"
             ],
             "time": "2020-01-20T21:40:59+00:00"
-        },
-        {
-            "name": "evmusonov/laravel-file-helper",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/evmusonov/laravel-file-helper.git",
-                "reference": "edb1263b5c79f04b682b2b6ed962ad8b1163c4e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/evmusonov/laravel-file-helper/zipball/edb1263b5c79f04b682b2b6ed962ad8b1163c4e1",
-                "reference": "edb1263b5c79f04b682b2b6ed962ad8b1163c4e1",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Evmusonov\\LaravelFileHelper\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Evgeny Musonov",
-                    "email": "evmusonov@gmail.com"
-                }
-            ],
-            "description": "Simple file uploader for documents and images with resize opportunity",
-            "time": "2020-02-01T11:21:34+00:00"
         },
         {
             "name": "fideloper/proxy",
@@ -5078,9 +5045,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "evmusonov/laravel-file-helper": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
