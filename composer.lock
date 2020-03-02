@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6217a4832700a078e893a24a2f7cc988",
+    "content-hash": "a87367fb004b7272e58539a5d1dd2b19",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -279,6 +279,39 @@
                 "validator"
             ],
             "time": "2020-01-20T21:40:59+00:00"
+        },
+        {
+            "name": "evmusonov/laravel-file-helper",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evmusonov/laravel-file-helper.git",
+                "reference": "a7286f759000838b2c5ed5d569ec58d61d2a2e46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/evmusonov/laravel-file-helper/zipball/a7286f759000838b2c5ed5d569ec58d61d2a2e46",
+                "reference": "a7286f759000838b2c5ed5d569ec58d61d2a2e46",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Evmusonov\\LaravelFileHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Evgeny Musonov",
+                    "email": "evmusonov@gmail.com"
+                }
+            ],
+            "description": "Simple file uploader for documents and images with resize opportunity",
+            "time": "2020-03-02T11:10:29+00:00"
         },
         {
             "name": "fideloper/proxy",

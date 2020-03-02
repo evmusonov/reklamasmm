@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Components\FileHelper;
-use App\Components\FileManager;
-use App\File;
 use App\Service;
+use Evmusonov\LaravelFileHelper\FileManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class ServiceController extends Controller

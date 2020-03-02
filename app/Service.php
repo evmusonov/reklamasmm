@@ -2,8 +2,9 @@
 
 namespace App;
 
-use App\Components\FileHelper;
 use App\Components\ImgHelper;
+use Evmusonov\LaravelFileHelper\File;
+use Evmusonov\LaravelFileHelper\FileHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model

@@ -1,7 +1,7 @@
 <?php
 namespace App\Components;
 
-use App\File;
+use Evmusonov\LaravelFileHelper\File;
 
 class ImgHelper
 {

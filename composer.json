@@ -9,10 +9,11 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-gd": "*",
+        "evmusonov/laravel-file-helper": "^1.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.10",
-        "laravel/tinker": "^2.0",
-        "ext-gd": "*"
+        "laravel/tinker": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
